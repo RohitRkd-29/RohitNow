@@ -1,0 +1,10 @@
+var tble = new GlideRecord('sys_db_object');tble.addEncodedQuery('sys_update_nameISNOTEMPTY^name!=v_wf_validation_report^nameISNOTEMPTY');
+tble.query();
+var count = 0;
+while(tble.next())
+{var gr = new GlideRecord(tble.name);
+if(gr.isValid()){    
+    gr.query();if(gr.getRowCount() == 0){   
+       gs.log('Table Name: ' + tble.name);      
+      count++;}}}
+gs.log('Total Tables:' +count);
