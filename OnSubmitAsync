@@ -1,0 +1,37 @@
+function onSubmit() {
+    
+    var scratchpad = g_scratchpad;
+    if (scratchpad.isFormValid) {
+        return true;
+    }
+    var tenantId = g_form.getValue('tenant_id');
+    var domain = g_form.getValue('domain');
+    if (tenantId != '' && domain != '') {
+
+        var ga = new GlideAjax('ValidateDomainTenant');
+        ga.addParam('sysparm_name', 'validateDomain');
+        ga.addParam('sysparm_domain', domain);
+        ga.addParam('sysparm_tenant', tenantId);
+
+        ga.getXMLAnswer(getResponse);
+        return false;
+
+        function getResponse(response) {
+            var answer = response;
+            if (answer == 'true') {
+                g_form.addInfoMessage('Valid Domain and Tenant ID');
+                scratchpad.isFormValid = true;
+                g_form.submit();
+
+            } else {
+                g_form.addErrorMessage('Not a Valid Domain or Tenant ID');
+                return false;
+            }
+        }
+
+
+
+    } else if ((tenantId == '' && domain == '')) {
+        return true;
+    }
+}
