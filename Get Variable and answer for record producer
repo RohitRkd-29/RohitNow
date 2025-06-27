@@ -1,0 +1,9 @@
+var gr = new GlideRecord('question_answer');
+gr.addQuery('table_sys_id', '30ccc907475a2610e70ebb30116d434e'); // Assuming 'current' is the newly created record
+gr.orderBy('order'); // Optional: Order by the order of the questions
+gr.query();
+while (gr.next()) {
+  var variableValue = gr.value.getDisplayValue(); // Get the display 
+  var variableLabel = gr.question.getDisplayValue(); // Get the label of the 
+  gs.print(" Test : "+variableLabel + variableValue);
+}
